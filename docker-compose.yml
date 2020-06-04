@@ -1,0 +1,29 @@
+version: "3"
+services:  
+
+  proxy:
+    image: nginx
+    volumes:
+      - ./reverse-proxy/nginx.conf:/etc/nginx/nginx.conf
+    ports:
+      - 80:80
+      - 443:443
+  
+  redis:
+    image: redis
+    expose:
+      - 6379
+
+  app:
+    image: nginx
+    volumes:
+      - ./www:/usr/share/nginx/html
+    expose:
+      - 80
+
+  updateAPI:
+    build:
+      context: ./app/app.API
+      dockerfile: Dockerfile
+    expose:
+        - "80"
