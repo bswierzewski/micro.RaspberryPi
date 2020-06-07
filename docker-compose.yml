@@ -7,23 +7,24 @@ services:
       - ./reverse-proxy/nginx.conf:/etc/nginx/nginx.conf
     ports:
       - 80:80
-      - 443:443
   
   redis:
     image: redis
-    expose:
-      - 6379
+    ports:
+      - 6379:6379
 
-  app:
-    image: nginx
-    volumes:
-      - ./www:/usr/share/nginx/html
-    expose:
-      - 80
-
-  updateAPI:
+  socket:
     build:
-      context: ./app/app.API
+      context: ./microservices/SocketIOService
+      dockerfile: Dockerfile
+    expose:
+      - 3000
+    depends_on:
+      - redis
+
+  updateDeviceService:
+    build:
+      context: ./microservices/UpdateDeviceService
       dockerfile: Dockerfile
     expose:
         - "80"
