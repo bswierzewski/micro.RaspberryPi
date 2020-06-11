@@ -10,6 +10,8 @@ services:
     depends_on:
       - update
       - socket
+      - auth
+      - app
   
   redis:
     image: redis
@@ -56,6 +58,18 @@ services:
     # Do usunięcia po testach
     volumes:
       - ./databases/auth.db:/auth.db
+    labels:
+      - "com.centurylinklabs.watchtower.enable=true"
+    depends_on:
+      - watchtower
+      
+  app:
+    image: swierzewskibartosz/appservice
+    expose:
+      - 80  
+    # Do usunięcia po testach
+    volumes:
+      - ./databases/app.db:/app.db
     labels:
       - "com.centurylinklabs.watchtower.enable=true"
     depends_on:
