@@ -11,7 +11,7 @@ services:
       - update
       - socket
       - auth
-      - app
+      - device
   
   redis:
     image: redis
@@ -63,7 +63,7 @@ services:
     depends_on:
       - watchtower
       
-  app:
+  device:
     image: swierzewskibartosz/deviceservice
     expose:
       - 80  
