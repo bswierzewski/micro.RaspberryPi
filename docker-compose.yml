@@ -64,12 +64,12 @@ services:
       - watchtower
       
   app:
-    image: swierzewskibartosz/appservice
+    image: swierzewskibartosz/deviceservice
     expose:
       - 80  
     # Do usunięcia po testach
     volumes:
-      - ./databases/app.db:/app.db
+      - ./databases/device.db:/device.db
     labels:
       - "com.centurylinklabs.watchtower.enable=true"
     depends_on:
