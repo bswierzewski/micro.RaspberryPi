@@ -8,7 +8,8 @@ services:
     ports:
       - 80:80
     depends_on:
-      - redis
+      - update
+      - socket
   
   redis:
     image: redis
@@ -32,7 +33,6 @@ services:
     labels:
       - "com.centurylinklabs.watchtower.enable=true"
     depends_on:
-      - proxy
       - redis
       - watchtower
 
@@ -44,4 +44,3 @@ services:
       - "com.centurylinklabs.watchtower.enable=true"
     depends_on:
       - watchtower
-      - proxy
