@@ -39,7 +39,7 @@ services:
   update:
     image: swierzewskibartosz/updatedeviceservice
     expose:
-      - 5000  
+      - 80  
     labels:
       - "com.centurylinklabs.watchtower.enable=true"
     depends_on:
