@@ -42,7 +42,7 @@ services:
     expose:
       - 80  
     volumes:
-      - ./databases:/update.db
+      - ./databases/update.db:/update.db
     labels:
       - "com.centurylinklabs.watchtower.enable=true"
     depends_on:
