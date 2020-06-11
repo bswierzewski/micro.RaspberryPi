@@ -26,7 +26,7 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
 
   socket:
-    images: swierzewskibartosz/micro.socket_io_service
+    image: swierzewskibartosz/micro.socket_io_service
     expose:
       - 3000    
     labels:
@@ -37,7 +37,7 @@ services:
       - watchtower
 
   updateDeviceService:
-    images: swierzewskibartosz/micro.device_update_service
+    image: swierzewskibartosz/micro.device_update_service
     expose:
         - 5000  
     labels:
