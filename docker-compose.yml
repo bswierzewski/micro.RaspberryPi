@@ -40,9 +40,22 @@ services:
   update:
     image: swierzewskibartosz/updatedeviceservice
     expose:
-      - 80  
+      - 80        
+    # Do usunięcia po testach
     volumes:
       - ./databases/update.db:/update.db
+    labels:
+      - "com.centurylinklabs.watchtower.enable=true"
+    depends_on:
+      - watchtower
+
+  auth:
+    image: swierzewskibartosz/authenticationservice
+    expose:
+      - 80  
+    # Do usunięcia po testach
+    volumes:
+      - ./databases/auth.db:/auth.db
     labels:
       - "com.centurylinklabs.watchtower.enable=true"
     depends_on:
