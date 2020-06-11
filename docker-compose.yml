@@ -25,6 +25,7 @@ services:
     #restart: always
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
+    command: --interval 30
 
   socket:
     image: swierzewskibartosz/micro.socket_io_service
@@ -40,6 +41,8 @@ services:
     image: swierzewskibartosz/updatedeviceservice
     expose:
       - 80  
+    volumes:
+      - ./databases:/update.db
     labels:
       - "com.centurylinklabs.watchtower.enable=true"
     depends_on:
