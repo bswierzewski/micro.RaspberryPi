@@ -26,24 +26,22 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
 
   socket:
-    build:
-      context: ./microservices/SocketIOService
-      dockerfile: Dockerfile
+    images:swierzewskibartosz/micro.socket_io_service
     expose:
       - 3000    
     labels:
       - "com.centurylinklabs.watchtower.enable=true"
     depends_on:
+      - proxy
       - redis
       - watchtower
 
   updateDeviceService:
-    build:
-      context: ./microservices/UpdateDeviceService
-      dockerfile: Dockerfile
+    images:swierzewskibartosz/micro.device_update_service
     expose:
         - 5000  
     labels:
       - "com.centurylinklabs.watchtower.enable=true"
     depends_on:
       - watchtower
+      - proxy
