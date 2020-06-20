@@ -13,6 +13,7 @@ services:
       - socket
       - auth
       - device
+      - app
   
   redis:
     container_name: redis
@@ -77,6 +78,16 @@ services:
     # Do usunięcia po testach
     volumes:
       - ./databases/device.db:/device.db
+    labels:
+      - "com.centurylinklabs.watchtower.enable=true"
+    depends_on:
+      - watchtower
+
+  app:
+    container_name: app
+    image: swierzewskibartosz/angular_spa
+    expose:
+      - 80  
     labels:
       - "com.centurylinklabs.watchtower.enable=true"
     depends_on:
