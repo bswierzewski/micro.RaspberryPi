@@ -35,7 +35,7 @@ services:
 
   socket:
     container_name: socket
-    image: swierzewskibartosz/socketioservice
+    image: swierzewskibartosz/service_socket_io
     expose:
       - 3000    
     labels:
@@ -46,12 +46,9 @@ services:
 
   update:
     container_name: update
-    image: swierzewskibartosz/updatedeviceservice
+    image: swierzewskibartosz/service_update_device
     expose:
       - 80        
-    # Do usunięcia po testach
-    volumes:
-      - ./databases/update.db:/update.db
     labels:
       - "com.centurylinklabs.watchtower.enable=true"
     depends_on:
@@ -59,12 +56,9 @@ services:
 
   auth:
     container_name: auth
-    image: swierzewskibartosz/authenticationservice
+    image: swierzewskibartosz/service_authentication
     expose:
       - 80  
-    # Do usunięcia po testach
-    volumes:
-      - ./databases/auth.db:/auth.db
     labels:
       - "com.centurylinklabs.watchtower.enable=true"
     depends_on:
@@ -72,12 +66,9 @@ services:
       
   device:
     container_name: device
-    image: swierzewskibartosz/deviceservice
+    image: swierzewskibartosz/service_device
     expose:
       - 80  
-    # Do usunięcia po testach
-    volumes:
-      - ./databases/device.db:/device.db
     labels:
       - "com.centurylinklabs.watchtower.enable=true"
     depends_on:
