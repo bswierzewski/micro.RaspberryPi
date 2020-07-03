@@ -21,6 +21,14 @@ services:
     ports:
       - 6379:6379
 
+  db:
+    container_name: db
+    image: postgres
+    environment:
+      POSTGRES_PASSWORD: mysecretpassword
+    expose:
+      - 5432
+
   watchtower:
     container_name: watchtower
     command: --label-enable --cleanup --interval 300
@@ -53,6 +61,7 @@ services:
       - "com.centurylinklabs.watchtower.enable=true"
     depends_on:
       - watchtower
+      - db
 
   auth:
     container_name: auth
@@ -63,6 +72,7 @@ services:
       - "com.centurylinklabs.watchtower.enable=true"
     depends_on:
       - watchtower
+      - db
       
   device:
     container_name: device
@@ -73,6 +83,7 @@ services:
       - "com.centurylinklabs.watchtower.enable=true"
     depends_on:
       - watchtower
+      - db
 
   app:
     container_name: app
