@@ -26,8 +26,6 @@ services:
     image: postgres
     environment:
       POSTGRES_PASSWORD: mysecretpassword
-    expose:
-      - 5432
 
   watchtower:
     container_name: watchtower
@@ -44,8 +42,6 @@ services:
   socket:
     container_name: socket
     image: swierzewskibartosz/service_socket_io
-    expose:
-      - 3000    
     labels:
       - "com.centurylinklabs.watchtower.enable=true"
     depends_on:
@@ -55,8 +51,6 @@ services:
   update:
     container_name: update
     image: swierzewskibartosz/service_update_device
-    expose:
-      - 80        
     labels:
       - "com.centurylinklabs.watchtower.enable=true"
     depends_on:
@@ -66,8 +60,6 @@ services:
   auth:
     container_name: auth
     image: swierzewskibartosz/service_authentication
-    expose:
-      - 80  
     labels:
       - "com.centurylinklabs.watchtower.enable=true"
     depends_on:
@@ -77,8 +69,6 @@ services:
   device:
     container_name: device
     image: swierzewskibartosz/service_device
-    expose:
-      - 80  
     labels:
       - "com.centurylinklabs.watchtower.enable=true"
     depends_on:
@@ -88,8 +78,6 @@ services:
   app:
     container_name: app
     image: swierzewskibartosz/angular_spa
-    expose:
-      - 80  
     labels:
       - "com.centurylinklabs.watchtower.enable=true"
     depends_on:
