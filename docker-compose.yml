@@ -5,15 +5,12 @@ services:
     container_name: proxy
     image: nginx
     volumes:
-      - ./reverse-proxy/nginx.conf:/etc/nginx/nginx.conf
+      - ./proxy/nginx.conf:/etc/nginx/nginx.conf
     ports:
       - 80:80
     depends_on:
-      - update
-      - socket
-      - auth
-      - device
-      - app
+      - microcontroller
+      - frontend
   
   redis:
     container_name: redis
@@ -51,9 +48,9 @@ services:
       - redis
       - watchtower
 
-  update:
-    container_name: update
-    image: swierzewskibartosz/service_update
+  microcontroller:
+    container_name: microcontroller
+    image: swierzewskibartosz/service_microcontroller
     labels:
       - "com.centurylinklabs.watchtower.enable=true"
     depends_on:
@@ -69,9 +66,9 @@ services:
       - watchtower
       - db
       
-  device:
-    container_name: device
-    image: swierzewskibartosz/service_device
+  backend:
+    container_name: backend
+    image: swierzewskibartosz/service_app
     labels:
       - "com.centurylinklabs.watchtower.enable=true"
     depends_on:
@@ -87,8 +84,8 @@ services:
       - watchtower
       - db
 
-  app:
-    container_name: app
+  frontend:
+    container_name: frontend
     image: swierzewskibartosz/angular_spa
     labels:
       - "com.centurylinklabs.watchtower.enable=true"
