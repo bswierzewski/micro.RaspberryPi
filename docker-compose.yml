@@ -1,17 +1,5 @@
 version: "3"
 services:
-        
-  proxy:
-    container_name: proxy
-    image: nginx
-    volumes:
-      - ./proxy/nginx.conf:/etc/nginx/nginx.conf
-    ports:
-      - 80:80
-    depends_on:
-      - microcontroller
-      - frontend
-  
   redis:
     container_name: redis
     image: redis
@@ -47,6 +35,8 @@ services:
     depends_on:
       - redis
       - watchtower
+    ports:
+      - 3000:3000
 
   microcontroller:
     container_name: microcontroller
@@ -56,6 +46,8 @@ services:
     depends_on:
       - watchtower
       - db
+    ports: 
+      - 5003:5003
 
   auth:
     container_name: auth
@@ -64,7 +56,9 @@ services:
       - "com.centurylinklabs.watchtower.enable=true"
     depends_on:
       - watchtower
-      - db
+      - db    
+    ports: 
+      - 5001:5001
       
   backend:
     container_name: backend
@@ -74,6 +68,8 @@ services:
     depends_on:
       - watchtower
       - db
+    ports: 
+      - 5002:5002
 
   broker:
     container_name: broker
@@ -91,3 +87,5 @@ services:
       - "com.centurylinklabs.watchtower.enable=true"
     depends_on:
       - watchtower
+    ports: 
+      - 80:80
