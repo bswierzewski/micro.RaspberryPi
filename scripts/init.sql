@@ -133,3 +133,6 @@ CREATE INDEX "IX_Versions_KindId" ON "Versions" ("KindId");
 
 INSERT INTO "__EFMigrationsHistory" ("MigrationId", "ProductVersion")
 VALUES ('20200928171511_InitialMigration', '3.1.4');
+
+INSERT INTO public."Users" VALUES (1, 'test', current_timestamp, current_timestamp, true, '\x73e232f1ea521cee65669f39b68357868aac4bf9a2be27b8b5800890e6a6672523e495bd52b31aefec45c621ff9a05d0ededf8ac362d454d1335a9783913950f', '\xa1ba49239491faf210f5bd1c8a495abbbee8ede200eac240b1c89f295864fa6d7e00f76d56e6eefb2e98ac3fa5f1602b00a4622a083603ec2b85f8acc1ee3cbdc25437104605e1005858ea09e30f1dab6c30ebe6e828f2e15a60f3afd65aadb5171ef1f7707d1274d3cd6d9e0f62161824471634497a75f6465d99bf0b533f4a');
+SELECT pg_catalog.setval('public."Users_Id_seq"', 1, true);
