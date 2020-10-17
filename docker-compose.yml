@@ -41,8 +41,6 @@ services:
   frontend:
     container_name: frontend
     image: swierzewskibartosz/angular_spa
-    depends_on:
-      - proxy
     expose:
       - 8080
 
@@ -51,7 +49,6 @@ services:
     image: swierzewskibartosz/service_authentication
     depends_on:
       - db
-      - proxy
     expose:
       - 5001
 
@@ -60,7 +57,6 @@ services:
     image: swierzewskibartosz/service_backend
     depends_on:
       - db
-      - proxy
     expose:
       - 5002
 
@@ -69,6 +65,5 @@ services:
     image: swierzewskibartosz/service_microcontroller
     depends_on:
       - db
-      - proxy
     expose:
       - 5003
