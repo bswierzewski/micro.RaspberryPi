@@ -3,6 +3,7 @@ services:
   proxy:
     container_name: proxy
     image: nginx:1.19.3-alpine
+    restart: always
     ports:
       - 80:80
       - 443:443
@@ -12,12 +13,14 @@ services:
   redis:
     container_name: redis
     image: redis
+    restart: always
     ports:
       - 6379:6379
 
   socket:
     container_name: socket
     image: swierzewskibartosz/service_socket_io
+    restart: always
     depends_on:
       - redis
     ports:
@@ -26,6 +29,7 @@ services:
   db:
     container_name: db
     image: postgres:alpine
+    restart: always
     environment:
       POSTGRES_DB: micro
       POSTGRES_PASSWORD: mysecretpassword
@@ -35,18 +39,21 @@ services:
   broker:
     container_name: broker
     image: swierzewskibartosz/service_broker
+    restart: always
     depends_on:
       - db
 
   frontend:
     container_name: frontend
     image: swierzewskibartosz/angular_spa
+    restart: always
     expose:
       - 8080
 
   auth:
     container_name: auth
     image: swierzewskibartosz/service_authentication
+    restart: always
     depends_on:
       - db
     expose:
@@ -55,6 +62,7 @@ services:
   backend:
     container_name: backend
     image: swierzewskibartosz/service_backend
+    restart: always
     depends_on:
       - db
     expose:
@@ -63,6 +71,7 @@ services:
   microcontroller:
     container_name: microcontroller
     image: swierzewskibartosz/service_microcontroller
+    restart: always
     depends_on:
       - db
     expose:
