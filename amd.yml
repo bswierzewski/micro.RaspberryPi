@@ -1,0 +1,78 @@
+version: "3.8"
+services:
+  proxy:
+    container_name: proxy
+    image: nginx:1.19.3-alpine
+    restart: always
+    ports:
+      - 80:80
+      - 443:443
+    volumes:
+      - ./proxy/nginx.conf:/etc/nginx/conf.d/default.conf
+
+  redis:
+    container_name: redis
+    image: redis:6.0.10
+    restart: always
+    ports:
+      - 6379:6379
+
+  socket:
+    container_name: socket
+    image: swierzewskibartosz/service_socket_io:amd
+    restart: always
+    depends_on:
+      - redis
+    ports:
+      - 3000:3000
+
+  db:
+    container_name: db
+    image: postgres:13.1-alpine
+    restart: always
+    environment:
+      POSTGRES_DB: micro
+      POSTGRES_PASSWORD: mysecretpassword
+    volumes:
+      - ./scripts/init.sql:/docker-entrypoint-initdb.d/init.sql
+
+  broker:
+    container_name: broker
+    image: swierzewskibartosz/service_broker:amd
+    restart: always
+    depends_on:
+      - db
+
+  frontend:
+    container_name: frontend
+    image: swierzewskibartosz/angular_spa:amd
+    restart: always
+    expose:
+      - 8080
+
+  auth:
+    container_name: auth
+    image: swierzewskibartosz/service_authentication:amd
+    restart: always
+    depends_on:
+      - db
+    expose:
+      - 5001
+
+  backend:
+    container_name: backend
+    image: swierzewskibartosz/service_backend:amd
+    restart: always
+    depends_on:
+      - db
+    expose:
+      - 5002
+
+  microcontroller:
+    container_name: microcontroller
+    image: swierzewskibartosz/service_microcontroller:amd
+    restart: always
+    depends_on:
+      - db
+    expose:
+      - 5003

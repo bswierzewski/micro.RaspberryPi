@@ -12,14 +12,14 @@ services:
 
   redis:
     container_name: redis
-    image: redis
+    image: redis:6.0.10
     restart: always
     ports:
       - 6379:6379
 
   socket:
     container_name: socket
-    image: swierzewskibartosz/service_socket_io
+    image: swierzewskibartosz/service_socket_io:arm
     restart: always
     depends_on:
       - redis
@@ -28,7 +28,7 @@ services:
 
   db:
     container_name: db
-    image: postgres:alpine
+    image: postgres:13.1-alpine
     restart: always
     environment:
       POSTGRES_DB: micro
@@ -38,21 +38,21 @@ services:
 
   broker:
     container_name: broker
-    image: swierzewskibartosz/service_broker
+    image: swierzewskibartosz/service_broker:arm
     restart: always
     depends_on:
       - db
 
   frontend:
     container_name: frontend
-    image: swierzewskibartosz/angular_spa
+    image: swierzewskibartosz/angular_spa:arm
     restart: always
     expose:
       - 8080
 
   auth:
     container_name: auth
-    image: swierzewskibartosz/service_authentication
+    image: swierzewskibartosz/service_authentication:arm
     restart: always
     depends_on:
       - db
@@ -61,7 +61,7 @@ services:
 
   backend:
     container_name: backend
-    image: swierzewskibartosz/service_backend
+    image: swierzewskibartosz/service_backend:arm
     restart: always
     depends_on:
       - db
@@ -70,7 +70,7 @@ services:
 
   microcontroller:
     container_name: microcontroller
-    image: swierzewskibartosz/service_microcontroller
+    image: swierzewskibartosz/service_microcontroller:arm
     restart: always
     depends_on:
       - db
