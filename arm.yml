@@ -28,7 +28,7 @@ services:
 
   db:
     container_name: db
-    image: postgres:12.5-alpine
+    image: postgres:13.1
     restart: always
     environment:
       POSTGRES_DB: micro
